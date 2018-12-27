@@ -45,6 +45,36 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+        ],
+
+        'coach' => [
+            'driver' => 'session',
+            'provider' => 'coaches',
+        ],
+
+        'coach-api' => [
+            'driver' => 'token',
+            'provider' => 'coaches',
+        ],
+
+        'swimmer' => [
+            'driver' => 'session',
+            'provider' => 'swimmers',
+        ],
+
+        'swimmer-api' => [
+            'driver' => 'token',
+            'provider' => 'swimmers',
+        ],
     ],
 
     /*
@@ -68,6 +98,18 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+        'coaches' => [
+            'driver' => 'eloquent',
+            'model' => App\Coach::class,
+        ],
+        'swimmers' => [
+            'driver' => 'eloquent',
+            'model' => App\Swimmer::class,
         ],
 
         // 'users' => [
@@ -94,6 +136,21 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'coaches' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'swimmers' => [
+            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
         ],
