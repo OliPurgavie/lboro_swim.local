@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Squad;
+use App\Swimmer;
+use Auth;
 
 class CoachController extends Controller
 {
@@ -23,6 +27,15 @@ class CoachController extends Controller
      */
     public function index()
     {
-        return view('coach');
+        $group = Squad::select('swimmer_id')->where('coach_id', Auth::user()->id)->get();
+        $group = $group->toArray();
+
+        $group_list = DB::table('swimmers')->whereIn('id', $group)->get();
+
+        $data = [
+          'group_list' => $group_list,
+        ];
+
+        return view('coach', $data);
     }
 }

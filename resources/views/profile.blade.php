@@ -14,9 +14,7 @@
                         </div>
                     @endif
 
-                    @foreach($group_list as $swimmer)
-                      <p>{{ $swimmer->id }} - {{ $swimmer->name }} <a href="">View Profile</a> </p>
-                    @endforeach
+                    
                 </div>
 
             </div>
