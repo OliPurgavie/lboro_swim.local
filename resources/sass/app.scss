@@ -5,10 +5,29 @@
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+$ie: false;
+@import 'mixins';
+@import 'config/layouts';
+@import 'objects/grid';
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+body, ul {
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.nav-bar {
+  height: 6vh;
+}
+
+.main-content {
+  height: 94vh;
 }

@@ -17,11 +17,11 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel" style="background-color: blue;">
+        <nav class="nav-bar navbar navbar-expand-md navbar-light navbar-laravel" style="background-color: blue;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Loughborough Swimming - Tracker
@@ -64,7 +64,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="main-content">
             @yield('content')
         </main>
     </div>

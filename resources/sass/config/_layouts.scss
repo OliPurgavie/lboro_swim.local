@@ -1,0 +1,64 @@
+// =====================================
+// LAYOUT
+// =====================================
+
+$border-box: true;
+
+//
+// Grids
+//
+$column-width: 75px;
+$gutter-width: 20px;
+$container-padding: 35px;
+$page-width: 1254px + ($container-padding * 2);//($gutter-width * 3); // site gutter at lap plus
+$gutter-percent: ($gutter-width / $page-width) * 100;
+
+//
+// Spacing
+//
+$spacing-base: $gutter-width;
+$spacing-half: ceil($spacing-base / 2);
+$spacing-quarter: ceil($spacing-base / 4);
+$spacing-vertical: 20px;
+
+//
+// Margin Spacing
+//
+$margin-spacing-base: 60px;
+$margin-spacing-half: ceil($margin-spacing-base / 2);
+$margin-spacing-quarter: ceil($margin-spacing-base / 4);
+
+//
+// Padding Spacing
+//
+$padding-spacing-base: 60px;
+$padding-spacing-half: ceil($padding-spacing-base / 2);
+$padding-spacing-quarter: ceil($padding-spacing-base / 4);
+
+//
+// Animations
+//
+$animation-time: .2s;
+
+//
+// Main Breakpoints
+//
+$palm-large: 415px;
+$lap-start:  730px; // site gutter at lap plus;
+$desk-start: 900px;
+$wide-start: $page-width;
+
+//
+// Proportionate Values
+//
+$grids: (3, 4, 5, 6, 12);
+
+$blockgrids : (5);
+
+$breakpoints : (
+        'palm' 0 $lap-start 4% $grids,
+        'palm-large' $palm-large $lap-start 4% $grids,
+        'lap' $lap-start $desk-start 4% $grids,
+        'desk' $desk-start $page-width 2% $grids,
+        'wide' ($page-width - 200px) 9999px 2% $grids
+);

@@ -28,6 +28,7 @@ Route::prefix('coach')->group(function() {
   Route::get('/login', 'Auth\CoachLoginController@showLoginForm')->name('coach.login');
   Route::post('/login', 'Auth\CoachLoginController@login')->name('coach.login.submit');
   Route::get('/', 'CoachController@index')->name('coach.dashboard');
+  Route::get('/profile/{swimmer}', 'CoachController@getProfile')->name('coach.profiles');
 });
 
 Route::prefix('swimmer')->group(function() {

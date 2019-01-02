@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Squad;
+use App\Model\Squad;
 use App\Swimmer;
+use App\Model\Profile;
 use Auth;
 
 class CoachController extends Controller
@@ -37,5 +38,17 @@ class CoachController extends Controller
         ];
 
         return view('coach', $data);
+    }
+
+    public function getProfile(Swimmer $swimmer)
+    {
+        $profile = DB::table('profiles')->where('swimmer_id', '1')->get();
+
+        $data = [
+          'swimmer' => $swimmer,
+          'profile' => $profile,
+        ];
+
+        return view('profile', $data);
     }
 }

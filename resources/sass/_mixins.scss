@@ -1,0 +1,204 @@
+/**
+ * ===================================
+ * Creates media query width closure
+ *
+ * $type = min, max, breakpoint ID (e.g. palm) or retina
+ * $breakpoint = width (e.g. 1000px or 40em)
+ *
+ * `@include media-query(min, $lap-start);`
+ * `@include media-query(max, $lap-start + 200px);`
+ *
+ * If the @ie flag is set to true then it builds a normal CSS rule (without the media query closure).
+ * This only happens if the breakpoint is a certain height or above.
+ *
+ * ===================================
+ */
+@mixin media-query($type, $breakpoint: $lap-start) {
+    @if $ie == true {
+        @if $type == "min" {
+            @content
+        } @else if $type == "max" {
+            @if $breakpoint > $lap-start {
+                @content
+            }
+        } @else if $type == "palm" {
+            // dont add
+        } @else if $type == "lap" {
+            @content
+        } @else if $type == "desk" {
+            @content
+        } @else if $type == "wide" {
+            @content
+        } @else if $type == "retina" {
+            // dont add
+        }
+    } @else {
+        @if $type == "min" {
+            @media only screen and (min-width: $breakpoint) {
+                @content
+            }
+        } @else if $type == "max" {
+            @media only screen and (max-width: $breakpoint - 1px) {
+                @content
+            }
+        } @else if $type == "palm" {
+            @media only screen and (max-width: $lap-start - 1px) {
+                @content
+            }
+        } @else if $type == "lap" {
+            @media only screen and (min-width: $lap-start) and (max-width: $desk-start - 1px) {
+                @content
+            }
+        } @else if $type == "desk" {
+            @media only screen and (min-width: $desk-start) {
+                @content
+            }
+        } @else if $type == "wide" {
+            @media only screen and (min-width: $wide-start) {
+                @content
+            }
+        } @else if $type == "retina" {
+            @media only screen and (min-device-pixel-ratio: 2),
+            only screen and (min-resolution: 192dpi),
+            only screen and (min-resolution: 2dppx) {
+                @content
+            }
+        }
+    }
+}
+
+/**
+ * ===================================
+ * Creates media query height closure
+ *
+ * $type = min or max
+ * $height = height (e.g. 1000px or 40em)
+ *
+ * `@include media-height(min, 200px);`
+ * `@include media-height(max, 800px);`
+ *
+ * ===================================
+ */
+@mixin media-query-height($type, $height) {
+    @if $type == "min" {
+        @media only screen and (min-height: $height) {
+            @content
+        }
+    } @else if $type == "max" {
+        @media only screen and (max-height: $height - 1px) {
+            @content
+        }
+    }
+}
+
+/**
+ * ===================================
+ * Creates media query brackets closure for targeting a width between 2 values (e.g. between 500-1000px)
+ *
+ * $to = start width (e.g. 500px or 20em)
+ * $from = end width (e.g. 1000px or 40em)
+ *
+ * `@include media-query-bracket($lap-start, $desk-start);`
+ * `@include media-query-bracket(400px, 800px);`
+ *
+ * ===================================
+ */
+@mixin media-query-bracket($from: 0, $to: 0) {
+    @if $ie == true {
+        @if $to > $from {
+            @if $to > $lap-start {
+                @content
+            }
+        }
+    } @else {
+        @if $to > $from {
+            @media only screen and (min-width: $from) and (max-width: $to - 1px) {
+                @content
+            }
+        }
+    }
+}
+
+//
+// Applies webkit font smoothing
+//
+@mixin smoothing() {
+    -webkit-font-smoothing: antialiased;
+}
+
+//
+// Outputs content within breakpoint specific media queries
+//
+@mixin breakpoint-rules($rule) {
+    .#{$rule} {
+        @content
+    }
+
+    @each $breakpoint in $breakpoints {
+        $context: nth($breakpoint, 1);
+
+        @include media-query($context) {
+            .#{$context}-#{$rule} {
+                @content
+            }
+        }
+    }
+}
+
+//
+// Outputs content within min-width media queries
+//
+@mixin breakpoint-min-rules($rule) {
+    .#{$rule} {
+        @content
+    }
+
+    @each $breakpoint in $breakpoints {
+        $context: nth($breakpoint, 1);
+
+        @if $context != "palm" {
+            $min: nth($breakpoint, 2);
+
+            @include media-query(min, $min) {
+                .#{$context}-#{$rule} {
+                    @content
+                }
+            }
+        }
+    }
+}
+
+//
+// Output clearfix rules
+//
+// - `@include clearfix();`
+//
+@mixin clearfix {
+    zoom: 1;
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+//
+// Output transition animate
+//
+// - `@include animate(top, 2s);`
+//
+@mixin animate($args...) {
+    transition: $args !important;
+}
+
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {@content}
+    &:-moz-placeholder           {@content}
+    &::-moz-placeholder          {@content}
+    &:-ms-input-placeholder      {@content}
+}
